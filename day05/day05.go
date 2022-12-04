@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-func solve(input string) int {
+func solve(input string, modifyFunc func(*int)) int {
 	steps := 0
 
 	offsets := parse(input)
 	ip := 0
 	for ip >= 0 && ip < len(offsets) {
 		inst := offsets[ip]
-		offsets[ip] += 1
+		modifyFunc(&offsets[ip])
 		ip += inst
 		steps += 1
 	}
@@ -22,23 +22,16 @@ func solve(input string) int {
 	return steps
 }
 
-func solveExtra(input string) int {
-	steps := 0
+func modifyBasic(inst *int) {
+	*inst += 1
+}
 
-	offsets := parse(input)
-	ip := 0
-	for ip >= 0 && ip < len(offsets) {
-		inst := offsets[ip]
-		if inst >= 3 {
-			offsets[ip] -= 1
-		} else {
-			offsets[ip] += 1
-		}
-		ip += inst
-		steps += 1
+func modifyExtra(inst *int) {
+	if *inst >= 3 {
+		*inst -= 1
+	} else {
+		*inst += 1
 	}
-
-	return steps
 }
 
 func parse(input string) []int {
@@ -58,5 +51,5 @@ func parse(input string) []int {
 var input string
 
 func main() {
-	fmt.Printf("%d, %d\n", solve(input), solveExtra(input))
+	fmt.Printf("%d, %d\n", solve(input, modifyBasic), solve(input, modifyExtra))
 }
