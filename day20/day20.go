@@ -64,15 +64,8 @@ func length(v [3]int64) int64 {
 func add(a [3]int64, b [3]int64) [3]int64 {
 	return [3]int64{ a[0] + b[0], a[1] + b[1], a[2] + b[2] }
 }
-func sub(a [3]int64, b [3]int64) [3]int64 {
-	return [3]int64{ a[0] - b[0], a[1] - b[1], a[2] - b[2] }
-}
-func equals(a [3]int64, b [3]int64) bool {
-	return a[0] == b[0] && a[1] == b[1] && a[2] == b[2]
-}
 
 func part1(input []particle) int {
-	
 	minIndex := 0
 	minVal := length(input[0].a)
 	for index, particle := range input {
@@ -82,7 +75,7 @@ func part1(input []particle) int {
 		}
 	}
 
-	return minIndex
+	return minIndex	
 }
 
 func update(particle *particle) {
